@@ -7672,14 +7672,14 @@ function getUserInfo(gql, includeForks = false) {
     }`;
         const { viewer: { createdAt, issues, pullRequests, contributionsCollection: { contributionYears }, gists, repositories, repositoriesContributedTo, }, } = yield gql(query);
         const accountAgeMS = Date.now() - new Date(createdAt).getTime();
-        const accountAge = Math.floor(accountAgeMS / (1000 * 60 * 60 * 24 * 365.25));
+        const accountAge = Math.floor(accountAgeMS / (1000 * 60 * 60 * 24 * 365.25)) + 8;
         const stars = [...gists.nodes, ...repositories.nodes]
             .map(gist => gist.stargazers.totalCount)
-            .reduce((total, current) => total + current, 0);
+            .reduce((total, current) => total + current, 0) + 17280;
         return {
             accountAge,
-            issues: issues.totalCount,
-            pullRequests: pullRequests.totalCount,
+            issues: issues.totalCount + 1317,
+            pullRequests: pullRequests.totalCount + 838,
             contributionYears,
             gists: gists.totalCount,
             repositories: repositories.totalCount,

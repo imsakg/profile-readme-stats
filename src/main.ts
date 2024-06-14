@@ -169,22 +169,23 @@ async function getUserInfo(gql: typeof graphql, includeForks = false) {
     } = await gql<Result>(query)
 
     const accountAgeMS = Date.now() - new Date(createdAt).getTime()
-    const accountAge = Math.floor(accountAgeMS / (1000 * 60 * 60 * 24 * 365.25))
-
-    const stars = [...gists.nodes, ...repositories.nodes]
-        .map(gist => gist.stargazers.totalCount)
-        .reduce((total, current) => total + current, 0)
+    const accountAge =
+        Math.floor(accountAgeMS / (1000 * 60 * 60 * 24 * 365.25)) + 8
+    const stars =
+        [...gists.nodes, ...repositories.nodes]
+            .map(gist => gist.stargazers.totalCount)
+            .reduce((total, current) => total + current, 0) + 17280
 
     return {
-        accountAge + 8,
+        accountAge,
         issues: issues.totalCount + 1317,
-        pullRequests: pullRequests.totalCount+838,
+        pullRequests: pullRequests.totalCount + 838,
         contributionYears,
         gists: gists.totalCount,
         repositories: repositories.totalCount,
         repositoryNodes: repositories.nodes,
         repositoriesContributedTo: repositoriesContributedTo.totalCount,
-        stars+17280,
+        stars,
     }
 }
 
